@@ -31,7 +31,9 @@ const HomePage = () => {
   return (
     <div>
       <img src={MainImage} alt="bee-main-background" />
-      <div>My Profile</div>
+      <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
     </div>
   );
 };
