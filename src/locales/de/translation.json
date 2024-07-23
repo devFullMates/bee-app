@@ -5,8 +5,9 @@
   "inStock": "Auf Lager",
   "outOfStock": "Nicht auf Lager",
   "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
-  "notifyMe": "Benachrichtigen Sie mich",
+  "notifyMe": "Benachrichtige mich",
   "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "moreInfo": "Mehr Informationen",
   "products": {
     "product1": {
       "name": "Propolis Tinktur",

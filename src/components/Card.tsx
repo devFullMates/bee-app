@@ -61,7 +61,7 @@ const Card: React.FC<CardProps> = ({
             className="text-yellow-500 text-center font-bold cursor-pointer"
             onClick={handleToggleInfoModal}
           >
-            {t("More information")}
+            {t("moreInfo")}
           </span>
         </p>
 
