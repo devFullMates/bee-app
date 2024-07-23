@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"] // Add this line if not already present
+  },
   "files": [],
   "references": [
     {

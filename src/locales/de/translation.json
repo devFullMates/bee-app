@@ -1,0 +1,60 @@
+{
+  "welcome": "Willkommen",
+  "product": "Produkt",
+  "description": "Beschreibung",
+  "inStock": "Auf Lager",
+  "outOfStock": "Nicht auf Lager",
+  "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein",
+  "notifyMe": "Benachrichtigen Sie mich",
+  "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "products": {
+    "product1": {
+      "name": "Propolis Tinktur",
+      "productImage": "assets/1.jpg",
+      "description": "Dies ist eine Beispiel-Produktbeschreibung.",
+      "isInStock": true
+    },
+    "product2": {
+      "name": "Körperwachs",
+      "productImage": "assets/2.jpg",
+      "description": "Ein weiteres Beispiel, nicht verfügbar.",
+      "isInStock": false
+    },
+    "product3": {
+      "name": "Honig",
+      "productImage": "assets/3.jpg",
+      "description": "Ein weiteres Beispielprodukt, das verfügbar ist.",
+      "isInStock": true
+    },
+    "product4": {
+      "name": "Körperwachs",
+      "productImage": "assets/4.jpg",
+      "description": "Viertes Produkt, nicht auf Lager.",
+      "isInStock": false
+    },
+    "product5": {
+      "name": "Lippenbalsam",
+      "productImage": "assets/5.png",
+      "description": "Fünfte Produktbeschreibung.",
+      "isInStock": true
+    },
+    "product6": {
+      "name": "Beispiel Produkt 3",
+      "productImage": "assets/3.jpg",
+      "description": "Ein weiteres Beispielprodukt, das verfügbar ist.",
+      "isInStock": true
+    },
+    "product7": {
+      "name": "Beispiel Produkt 4",
+      "productImage": "assets/4.jpg",
+      "description": "Viertes Produkt, nicht auf Lager.",
+      "isInStock": false
+    },
+    "product8": {
+      "name": "Beispiel Produkt 5",
+      "productImage": "assets/5.png",
+      "description": "Fünfte Produktbeschreibung.",
+      "isInStock": true
+    }
+  }
+}

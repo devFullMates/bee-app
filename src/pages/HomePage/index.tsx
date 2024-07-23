@@ -1,39 +1,29 @@
-/* import { Card } from "../../components/Card";
-import { NavBar } from "../../components/NavBar";
-import { ListContainerHome, MainContainerHome } from "./style";
-import { MenuItemFormat } from "../../interfaces/interfaces";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useCart } from "../../providers/cart";
-import { useAuth } from "../../providers/auth"; */
-import MainImage from "../../assets/main_component_background.jpg";
+import React from 'react';
+import Card from "../../components/Card";
+import productsData from '../../locales/nl/translation.json'; // Import the JSON data
 
-const HomePage = () => {
-  /*  const [menuList, setMenuList] = useState<MenuItemFormat[]>(
-    [] as MenuItemFormat[]
-  );
+const HomePage: React.FC = () => {
+  const handleNotify = (email: string) => {
+    alert(`Notification request submitted for: ${email}`);
+    // Add more logic here to handle the email submission
+  };
 
-  const { getItemsInCart, setCart } = useCart();
-
-  const { authToken, userId } = useAuth();
-
-  useEffect(() => {
-    axios
-      .get("https://hamburgerapi.onrender.com/menulist")
-      .then((response) => {
-        setMenuList([...response.data]);
-        userId && authToken && getItemsInCart(userId, authToken);
-        userId === "" && setCart([]);
-      })
-      .catch((e) => console.log(e.response.data.message));
-  }, [userId]); */
+  const getImageSrc = (imagePath: string) => {
+    return new URL(`../../${imagePath}`, import.meta.url).href;
+  };
 
   return (
-    <div>
-      <img src={MainImage} alt="bee-main-background" />
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
+      {Object.entries(productsData.products).map(([key, product], index) => (
+        <Card
+          key={index}
+          productName={product.name}
+          productImage={getImageSrc(product.productImage)}
+          description={product.description}
+          isInStock={product.isInStock}
+          onNotify={handleNotify}
+        />
+      ))}
     </div>
   );
 };
