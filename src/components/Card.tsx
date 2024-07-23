@@ -104,9 +104,9 @@ const Card: React.FC<CardProps> = ({
               <h2 className="text-lg font-semibold">{translatedName}</h2>
               <span
                 onClick={handleToggleInfoModal}
-                className="text-red-500 cursor-pointer"
+                className="text-red-500 font-bold cursor-pointer"
               >
-                {t("close")}
+                {t("X")}
               </span>
             </div>
             <p className="text-gray-700">{translatedDescription}</p>
@@ -127,9 +127,9 @@ const Card: React.FC<CardProps> = ({
               <h2 className="text-lg font-semibold">{t("Notify me")}</h2>
               <span
                 onClick={handleToggleNotifyModal}
-                className="text-red-500 cursor-pointer"
+                className="text-red-500 cursor-pointer font-bold"
               >
-                {t("close")}
+                {t("X")}
               </span>
             </div>
             <input
