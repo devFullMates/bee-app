@@ -9,7 +9,7 @@ export default {
       colors: {
         'custom-brown': '#652911',
         'custom-orange': '#D98C38',
-        'card-background': 'rgba(255, 255, 255, 0.4)', // Define a color with opacity
+        'card-background': 'rgba(255, 255, 255, 0.4)',
       },
     },
   },

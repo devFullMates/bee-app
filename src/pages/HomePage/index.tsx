@@ -1,11 +1,10 @@
 import React from 'react';
 import Card from "../../components/Card";
-import productsData from '../../locales/nl/translation.json'; // Import the JSON data
+import productsData from '../../locales/nl/translation.json';
 
 const HomePage: React.FC = () => {
   const handleNotify = (email: string) => {
     alert(`Notification request submitted for: ${email}`);
-    // Add more logic here to handle the email submission
   };
 
   const getImageSrc = (imagePath: string) => {

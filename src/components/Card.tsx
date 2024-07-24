@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({
     if (email) {
       onNotify(email);
       setEmail("");
-      setShowNotifyModal(false); // Close the modal after submitting
+      setShowNotifyModal(false);
     }
   };
 
