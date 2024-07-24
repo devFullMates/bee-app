@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 interface CardProps {
   productName: string;
   productImage: string;
-  description: string;
+  description: React.ReactNode;
   isInStock: boolean;
   onNotify: (email: string) => void;
 }
@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({
     if (email) {
       onNotify(email);
       setEmail("");
-      setShowNotifyModal(false); // Close the modal after submitting
+      setShowNotifyModal(false);
     }
   };
 
@@ -44,7 +44,8 @@ const Card: React.FC<CardProps> = ({
   const translatedName = t(`products.${productName}.name`, {
     defaultValue: productName,
   });
-  const translatedDescription = t(`products.${productName}.description`, {
+
+  const translatedDescription: React.ReactNode = t(`products.${productName}.description`, {
     defaultValue: description,
   });
 
@@ -56,14 +57,14 @@ const Card: React.FC<CardProps> = ({
         alt={translatedName}
         className="w-full h-64 object-cover rounded-md mb-4"
       />
-        <p className="text-center">
-          <span
-            className="text-yellow-500 text-center font-bold cursor-pointer"
-            onClick={handleToggleInfoModal}
-          >
-            {t("moreInfo")}
-          </span>
-        </p>
+      <p className="text-center">
+        <span
+          className="text-yellow-500 text-center font-bold underline cursor-pointer"
+          onClick={handleToggleInfoModal}
+        >
+          {t("moreInfo")}
+        </span>
+      </p>
 
       <div
         className={`flex items-center justify-center font-bold ${
@@ -109,7 +110,7 @@ const Card: React.FC<CardProps> = ({
                 {t("X")}
               </span>
             </div>
-            <p className="text-gray-700">{translatedDescription}</p>
+            <div className="text-gray-700">{translatedDescription}</div>
           </div>
         </div>
       )}

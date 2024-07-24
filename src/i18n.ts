@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Import translation files
 import enTranslation from './locales/en/translation.json';
 import nlTranslation from './locales/nl/translation.json';
 import ptTranslation from './locales/pt/translation.json';
@@ -16,7 +15,7 @@ i18n
       pt: { translation: ptTranslation },
       de: { translation: deTranslation }
     },
-    lng: 'nl', // Default language
+    lng: 'nl',
     fallbackLng: 'nl',
     interpolation: {
       escapeValue: false,
