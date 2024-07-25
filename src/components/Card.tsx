@@ -19,17 +19,26 @@ const Card: React.FC<CardProps> = ({
   const [email, setEmail] = useState("");
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showNotifyModal, setShowNotifyModal] = useState(false);
+  const [emailError, setEmailError] = useState("");
   const { t } = useTranslation();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleNotifyClick = () => {
-    if (email) {
+    if (isValidEmail(email)) {
       onNotify(email);
       setEmail("");
+      setEmailError("");
       setShowNotifyModal(false);
+    } else {
+      setEmailError(t("invalidEmail"));
     }
   };
 
@@ -83,7 +92,7 @@ const Card: React.FC<CardProps> = ({
               <span className="text-xl">{t("outOfStock")}</span>
             </div>
             <button
-              className= "bg-custom-orange cursor-pointer text-white p-1 rounded-md hover:bg-brown-700 transition duration-300 w-full"
+              className="bg-custom-orange cursor-pointer text-white p-1 rounded-md hover:bg-brown-700 transition duration-300 w-full"
               onClick={handleToggleNotifyModal}
             >
               {t("notifyMe")}
@@ -140,6 +149,9 @@ const Card: React.FC<CardProps> = ({
               value={email}
               onChange={handleEmailChange}
             />
+            {emailError && (
+              <div className="text-red-500 text-sm mb-2">{emailError}</div>
+            )}
             <button
               onClick={handleNotifyClick}
               className="bg-custom-orange text-white p-2 rounded-md hover:bg-brown-700 transition duration-300 w-full"
