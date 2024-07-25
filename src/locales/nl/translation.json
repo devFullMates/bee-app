@@ -1,0 +1,63 @@
+{
+  "welcome": "Welkom",
+  "product": "Product",
+  "description": "Beschrijving",
+  "inStock": "Op Voorraad",
+  "outOfStock": "Uitverkocht",
+  "emailPlaceholder": "Voer je e-mail in",
+  "notifyMe": "Laat het me weten",
+  "invalidEmail": "Voer een geldig e-mailadres in.",
+  "moreInfo": "Meer Informatie",
+    "products": {
+      "product1": {
+        "name": "Propolis tinctuur",
+        "productImage": "assets/1.jpg",
+        "description": "Larissa is een asdsadjha dakjhdka sdahskdjasample productomschrijving.",
+        "isInStock": true
+      },
+      "product2": {
+        "name": "Bodywax",
+        "productImage": "assets/2.jpg",
+        "description": "Een ander voorbeeld adjasdk a atis beschikbaar sssss.",
+        "isInStock": false
+      },
+      "product3": {
+        "name": "Honing",
+        "productImage": "assets/3.jpg",
+        "description": "Een ander voorbeeldproduct thsa sad ad asasd ada d asdadsada adasdda dsa at is beschikbaar.",
+        "isInStock": true
+      },
+      "product4": {
+        "name": "Bodywax",
+        "productImage": "assets/4.jpg",
+        "description": "Vierde product, niet op voorraad.",
+        "isInStock": false
+      },
+      "product5": {
+        "name": "Lipbalsem",
+        "productImage": "assets/5.png",
+        "description": "Vijfde productomschrijving.",
+        "isInStock": true
+      },
+      "product6": {
+        "name": "Voorbeeld Product 3",
+        "productImage": "assets/3.jpg",
+        "description": "Een ander voorbeeldproduct dat beschikbaar is.",
+        "isInStock": true
+      },
+      "product7": {
+        "name": "Voorbeeld Product 4",
+        "productImage": "assets/4.jpg",
+        "description": "Vierde product, niet op voorraad.",
+        "isInStock": false
+      },
+      "product8": {
+        "name": "Voorbeeld Product 5",
+        "productImage": "assets/5.png",
+        "description": "Vijfde productomschrijving.",
+        "isInStock": true
+      }
+    }
+  }
+  
+
