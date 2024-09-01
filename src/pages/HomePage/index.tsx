@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchProducts, Product } from "../../services/contentfulGraphQLService";
+import { fetchProducts, Product, updateProductEmails } from "../../services/contentfulGraphQLService";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Card from "../../components/Card";
@@ -16,9 +16,26 @@ const HomePage: React.FC = () => {
     loadProducts();
   }, []);
 
-  const handleNotify = (email: string) => {
-    alert(`Notification request submitted for: ${email}`);
+  const handleNotify = async (email: string, productId: string) => {
+    try {
+      const product = products.find((p) => p.id === productId);
+      if (!product) return;
+  
+      const existingEmails = product.notifyEmails[productId] || [];
+  
+      if (!existingEmails.includes(email)) {
+        const updatedEmails = { ...product.notifyEmails, [productId]: [...existingEmails, email] };
+  
+        await updateProductEmails(productId, updatedEmails);
+        alert(`Notification request submitted for: ${email}`);
+      } else {
+        alert(`You are already subscribed to notifications for this product.`);
+      }
+    } catch (error) {
+      console.error('Error subscribing to notifications:', error);
+    }
   };
+  
 
   return (
     <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
@@ -35,7 +52,7 @@ const HomePage: React.FC = () => {
             },
           })}
           isInStock={product.isInStock}
-          onNotify={handleNotify}
+          onNotify={(email) => handleNotify(email, product.id)}
         />
       ))}
     </div>

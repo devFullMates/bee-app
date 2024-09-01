@@ -18,7 +18,22 @@ interface ProductImage {
     inStock: boolean;
     image: ProductImage;
     description: ProductDescription;
+    notifyEmails: { [productId: string]: string[] }; // Update here
   }
+  
+  export interface Product {
+    id: string;
+    name: string;
+    image: {
+      url: string;
+      title?: string;
+      description?: string;
+    };
+    description: any;
+    isInStock: boolean;
+    notifyEmails: { [productId: string]: string[] }; // Update here
+  }
+  
   
   interface ProductCollection {
     items: ProductItem[];
@@ -26,19 +41,7 @@ interface ProductImage {
   
   interface GraphQLResponse {
     productCollection: ProductCollection;
-  }
-
-export interface Product {
-  id: string;
-  name: string;
-  image: {
-    url: string;
-    title?: string;
-    description?: string;
-  };
-  description: any;
-  isInStock: boolean;
-}
+  }  
 
 const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
 const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
@@ -58,24 +61,25 @@ const client = new GraphQLClient(
 
 const PRODUCTS_QUERY = gql`
   query {
-    productCollection {
-      items {
-        sys {
-          id
-        }
-        name
-        inStock
-        image {
-          url
-          title
-          description
-        }
-        description {
-          json
-        }
+  productCollection {
+    items {
+      sys {
+        id
       }
+      name
+      inStock
+      image {
+        url
+        title
+        description
+      }
+      description {
+        json
+      }
+      notifyEmails
     }
   }
+}
 `;
 
 export const fetchProducts = async (): Promise<Product[]> => {
@@ -92,9 +96,37 @@ export const fetchProducts = async (): Promise<Product[]> => {
       },
       description: item.description,
       isInStock: item.inStock,
+      notifyEmails: item.notifyEmails || {},
     }));
   } catch (error) {
     console.error('Error fetching products:', error);
     return [];
+  }
+};
+
+
+
+const UPDATE_PRODUCT_EMAILS_MUTATION = gql`
+  mutation updateProductEmails($id: String!, $notifyEmails: JSON) {
+    productUpdate(id: $id, data: { notifyEmails: $notifyEmails }) {
+      sys {
+        id
+      }
+      notifyEmails
+    }
+  }
+`;
+
+export const updateProductEmails = async (
+  productId: string,
+  notifyEmails: { [productId: string]: string[] }
+): Promise<void> => {
+  try {
+    await client.request(UPDATE_PRODUCT_EMAILS_MUTATION, {
+      id: productId,
+      notifyEmails, // Pass as JSON object
+    });
+  } catch (error) {
+    console.error('Error updating product emails:', error);
   }
 };
