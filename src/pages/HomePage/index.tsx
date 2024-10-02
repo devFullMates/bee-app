@@ -3,7 +3,7 @@ import { fetchProducts, Product } from "../../services/contentfulGraphQLService"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Card from "../../components/Card";
-import { createEmail } from "../../services/contentfulGraphQLService";
+import { registerEmailContentful } from "../../services/contentfulGraphQLService";
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
 
   const handleNotify = async (email: string, productId: string) => {
     try {
-      await createEmail(email, productId);
+      await registerEmailContentful(email, productId);
     } catch (error) {
       console.error("Failed to submit notification request", error);
     }

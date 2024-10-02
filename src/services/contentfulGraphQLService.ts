@@ -100,11 +100,11 @@ export const fetchProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const createEmail = async (email: string, productId: string): Promise<void> => {
-  const createEmailUrl = `https://api.contentful.com/spaces/${spaceId}/environments/master/entries`;
+export const registerEmailContentful = async (email: string, productId: string): Promise<void> => {
+  const registerEmailContentfulUrl = `https://api.contentful.com/spaces/${spaceId}/environments/master/entries`;
 
   try {
-    const response = await fetch(createEmailUrl, {
+    const response = await fetch(registerEmailContentfulUrl, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessTokenPost}`,
