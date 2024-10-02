@@ -3,6 +3,7 @@ import { fetchProducts, Product } from "../../services/contentfulGraphQLService"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS } from "@contentful/rich-text-types";
 import Card from "../../components/Card";
+import { createEmail } from "../../services/contentfulGraphQLService";
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -16,8 +17,12 @@ const HomePage: React.FC = () => {
     loadProducts();
   }, []);
 
-  const handleNotify = (email: string) => {
-    alert(`Notification request submitted for: ${email}`);
+  const handleNotify = async (email: string, productId: string) => {
+    try {
+      await createEmail(email, productId);
+    } catch (error) {
+      console.error("Failed to submit notification request", error);
+    }
   };
 
   return (
@@ -25,6 +30,7 @@ const HomePage: React.FC = () => {
       {products.map((product) => (
         <Card
           key={product.id}
+          productId={product.id} 
           productName={product.name}
           productImage={product.image.url}
           description={documentToReactComponents(product.description.json, {

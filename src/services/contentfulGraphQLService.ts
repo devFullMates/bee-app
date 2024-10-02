@@ -40,10 +40,11 @@ export interface Product {
   isInStock: boolean;
 }
 
-const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
-const accessToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
+const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID; // For Vite, environment variables should be prefixed with VITE_ to be exposed to your application
+const accessTokenGet = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_DELIVERY_API; // get
+const accessTokenPost = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT; // post
 
-if (!spaceId || !accessToken) {
+if (!spaceId || !accessTokenGet || !accessTokenPost) {
     throw new Error("Missing Contentful space ID or access token");
   }
 
@@ -51,7 +52,7 @@ const client = new GraphQLClient(
   `https://graphql.contentful.com/content/v1/spaces/${spaceId}`,
   {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${accessTokenGet}`,
     },
   }
 );
@@ -98,3 +99,44 @@ export const fetchProducts = async (): Promise<Product[]> => {
     return [];
   }
 };
+
+export const createEmail = async (email: string, productId: string): Promise<void> => {
+  const createEmailUrl = `https://api.contentful.com/spaces/${spaceId}/environments/master/entries`;
+
+  try {
+    const response = await fetch(createEmailUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessTokenPost}`,
+        'Content-Type': 'application/vnd.contentful.management.v1+json',
+        'X-Contentful-Content-Type': 'emailRegistration',
+      },
+      body: JSON.stringify({
+        fields: {
+          email: {
+            'en-US': email,
+          },
+          relatedProduct: {
+            'en-US': {
+              sys: {
+                type: "Link",
+                linkType: "Entry",
+                id: productId,
+              },
+            },
+          },
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to create email: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log('Email created successfully:', data);
+  } catch (error) {
+    console.error('Error creating email:', error);
+  }
+};
+
