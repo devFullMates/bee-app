@@ -7,6 +7,7 @@ import { registerEmailContentful } from "../../services/contentfulGraphQLService
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [bees, setBees] = useState<{ x: number; y: number }[]>([]);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -15,6 +16,27 @@ const HomePage: React.FC = () => {
     };
 
     loadProducts();
+
+    let animationFrameId: number;
+
+  const handleMouseMove = (event: MouseEvent) => {
+    const newBee = { x: event.clientX, y: event.clientY };
+    setBees((prev) => {
+      const updatedBees = [...prev, newBee];
+      if (updatedBees.length > 6) {
+        updatedBees.shift();
+      }
+      return updatedBees;
+    });
+    animationFrameId = requestAnimationFrame(() => {});
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    cancelAnimationFrame(animationFrameId);
+  };
   }, []);
 
   const handleNotify = async (email: string, productId: string) => {
@@ -26,11 +48,11 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
+    <div className="relative flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
       {products.map((product) => (
         <Card
           key={product.id}
-          productId={product.id} 
+          productId={product.id}
           productName={product.name}
           productImage={product.image.url}
           description={documentToReactComponents(product.description.json, {
@@ -42,6 +64,21 @@ const HomePage: React.FC = () => {
           })}
           isInStock={product.isInStock}
           onNotify={handleNotify}
+        />
+      ))}
+      
+      {bees.map((bee, index) => (
+        <img
+          key={index}
+          src="/bee.png"
+          alt="bee"
+          className="absolute w-8 h-8 pointer-events-none"
+          style={{
+            left: bee.x,
+            top: bee.y,
+            transform: "translate(-50%, -50%)",
+            transition: "left 0.1s, top 0.1s",
+          }}
         />
       ))}
     </div>

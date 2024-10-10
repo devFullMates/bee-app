@@ -63,7 +63,7 @@ const Card: React.FC<CardProps> = ({
   );
 
   return (
-    <div className="w-full max-w-xs bg-opacity-80 bg-white p-4 rounded-lg shadow-md flex flex-col justify-between h-[465px]">
+    <div className="mt-12 w-full max-w-xs bg-opacity-80 bg-white p-4 rounded-lg shadow-md flex flex-col justify-between h-[465px]">
       <h2 className="text-lg font-bold text-center mb-2">{translatedName}</h2>
       <img
         src={productImage}
@@ -205,7 +205,7 @@ const Card: React.FC<CardProps> = ({
               </span>
             </div>
             <div className="text-center text-gray-700">
-            {t("Don't worry! I've noted the product you want, and we'll notify you at {{email}} when it's back in stock.", { email })}</div>
+            {t("Don't worry! I've noted that you want to be notified at {{email}} when {{productName}} is back in stock.", { email, productName })}</div>
 
             <div className="relative h-48 mt-4">
                 <img
