@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import Flag from './Flag';
 
 interface HeaderProps {
   logoSrc: string;
@@ -7,7 +8,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ logoSrc, companyName }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -25,7 +26,6 @@ const Header: React.FC<HeaderProps> = ({ logoSrc, companyName }) => {
             />
           </a>
         </div>
-        {/* Second bee */}
         <div className="absolute top-1 left-0 w-16 h-16 bee-animation">
           <a href="/">
             <img 
@@ -35,7 +35,6 @@ const Header: React.FC<HeaderProps> = ({ logoSrc, companyName }) => {
             />
           </a>
         </div>
-        {/* Third bee */}
         <div className="absolute top-9 right-0 w-16 h-16 bee-animation">
           <a href="/">
             <img 
@@ -50,33 +49,29 @@ const Header: React.FC<HeaderProps> = ({ logoSrc, companyName }) => {
         <h1 className="text-2xl font-bold flex-1 text-center">{companyName}</h1>
       </a>
       <div className="flex space-x-2">
-        <img
-          src="/nl_flag.webp"
-          alt="Dutch"
-          className="h-8 w-8 object-contain cursor-pointer"
-          title="Dutch"
-          onClick={() => handleChangeLanguage('nl')}
+        <Flag 
+          src="/nl_flag.webp" 
+          alt="Dutch" 
+          title="Dutch" 
+          onClick={() => handleChangeLanguage('nl')} 
         />
-        <img
-          src="/uk_flag.png"
-          alt="English"
-          className="h-8 w-8 object-contain cursor-pointer"
-          title="English"
-          onClick={() => handleChangeLanguage('en')}
+        <Flag 
+          src="/uk_flag.png" 
+          alt="English" 
+          title="English" 
+          onClick={() => handleChangeLanguage('en')} 
         />
-        <img
-          src="/br_flag.png"
-          alt="Portuguese"
-          className="h-8 w-8 object-contain cursor-pointer"
-          title="Portuguese"
-          onClick={() => handleChangeLanguage('pt')}
+        <Flag 
+          src="/br_flag.png" 
+          alt="Portuguese" 
+          title="Portuguese" 
+          onClick={() => handleChangeLanguage('pt')} 
         />
-         <img
-          src="/de_flag.png"
-          alt="Portuguese"
-          className="h-8 w-8 object-contain cursor-pointer"
-          title="Portuguese"
-          onClick={() => handleChangeLanguage('de')}
+        <Flag 
+          src="/de_flag.png" 
+          alt="German" 
+          title="German" 
+          onClick={() => handleChangeLanguage('de')} 
         />
       </div>
     </header>

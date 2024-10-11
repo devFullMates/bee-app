@@ -1,83 +1,6 @@
-import { GraphQLClient, gql } from 'graphql-request';
-
-interface ProductImage {
-    url: string;
-    title?: string;
-    description?: string;
-  }
-  
-  interface ProductDescription {
-    json: any;
-  }
-  
-  interface ProductItem {
-    sys: {
-      id: string;
-    };
-    name: string;
-    inStock: boolean;
-    image: ProductImage;
-    description: ProductDescription;
-  }
-  
-  interface ProductCollection {
-    items: ProductItem[];
-  }
-  
-  interface GraphQLResponse {
-    productCollection: ProductCollection;
-  }
-
-export interface Product {
-  id: string;
-  name: string;
-  image: {
-    url: string;
-    title?: string;
-    description?: string;
-  };
-  description: any;
-  isInStock: boolean;
-}
-
-const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID; // For Vite, environment variables should be prefixed with VITE_ to be exposed to your application
-const accessTokenGet = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_DELIVERY_API; // get
-const accessTokenPost = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT; // post
-
-if (!spaceId || !accessTokenGet || !accessTokenPost) {
-    throw new Error("Missing Contentful space ID or access token");
-  }
-
-const client = new GraphQLClient(
-  `https://graphql.contentful.com/content/v1/spaces/${spaceId}`,
-  {
-    headers: {
-      Authorization: `Bearer ${accessTokenGet}`,
-    },
-  }
-);
-
-const PRODUCTS_QUERY = gql`
-  query {
-    productCollection {
-      items {
-        sys {
-          id
-        }
-        name
-        inStock
-        image {
-          url
-          title
-          description
-        }
-        description {
-          json
-        }
-      }
-    }
-  }
-`;
+import client from './graphqlClient';
+import { PRODUCTS_QUERY } from './queries';
+import { Product, GraphQLResponse } from './types';
 
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
@@ -101,6 +24,9 @@ export const fetchProducts = async (): Promise<Product[]> => {
 };
 
 export const registerEmailContentful = async (email: string, productId: string): Promise<void> => {
+  const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
+  const accessTokenPost = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT; 
+
   const registerEmailContentfulUrl = `https://api.contentful.com/spaces/${spaceId}/environments/master/entries`;
 
   try {
@@ -139,4 +65,3 @@ export const registerEmailContentful = async (email: string, productId: string):
     console.error('Error creating email:', error);
   }
 };
-

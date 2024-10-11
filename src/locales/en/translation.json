@@ -7,5 +7,9 @@
   "emailPlaceholder": "Enter your email",
   "notifyMe": "Notify me",
   "invalidEmail": "Please enter a valid email address.",
-  "moreInfo": "More information"
+  "moreInfo": "More information",
+  "notifyMessage": "Don't worry! I've noted that you want to be notified at {{email}} when {{productName}} is back in stock.",
+  "notifyTitle": "Congrats! You will be notified!",
+  "validEmail": "This is a valid email!",
+  "invalidEmail": "This is not a valid email!"
 }

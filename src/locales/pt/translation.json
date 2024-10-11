@@ -4,8 +4,12 @@
   "description": "Descrição",
   "inStock": "Em Estoque",
   "outOfStock": "Fora de Estoque",
-  "emailPlaceholder": "Digite seu e-mail",
+  "emailPlaceholder": "Digite seu email",
   "notifyMe": "Notifique-me",
-  "invalidEmail": "Por favor, insira um endereço de e-mail válido.",
-  "moreInfo": "Mais Informação"
+  "invalidEmail": "Por favor, insira um endereço de email válido.",
+  "moreInfo": "Mais informações",
+  "notifyMessage": "Não se preocupe! Anotei que você deseja ser notificado em {{email}} quando {{productName}} estiver de volta em estoque.",
+  "notifyTitle": "Parabéns! Você será notificado!",
+  "validEmail": "Este é um email válido!",
+  "invalidEmail": "Este não é um email válido!"
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import validator from "validator";
+import Modal from "./Modal";
 
 interface CardProps {
   productId: string;
@@ -26,8 +27,7 @@ const Card: React.FC<CardProps> = ({
   const { t } = useTranslation();
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setEmail(value);
+    setEmail(event.target.value);
   };
 
   const handleNotifyClick = () => {
@@ -38,28 +38,19 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  const handleToggleInfoModal = () => {
-    setShowInfoModal((prev) => !prev);
-  };
-
+  const handleToggleInfoModal = () => setShowInfoModal(!showInfoModal);
   const handleToggleNotifyModal = () => {
-    setShowNotifyModal((prev) => !prev);
+    setShowNotifyModal(!showNotifyModal);
     setEmail("");
   };
-
-  const handleToggleSuccessModal = () => {
-    setShowSuccessModal(false);
-  };
+  const handleToggleSuccessModal = () => setShowSuccessModal(false);
 
   const translatedName = t(`products.${productName}.name`, {
     defaultValue: productName,
   });
-
   const translatedDescription: React.ReactNode = t(
     `products.${productName}.description`,
-    {
-      defaultValue: description,
-    }
+    { defaultValue: description }
   );
 
   return (
@@ -69,6 +60,7 @@ const Card: React.FC<CardProps> = ({
         src={productImage}
         alt={translatedName}
         className="w-full h-64 object-cover rounded-md mb-4"
+        loading="lazy" 
       />
       <p className="text-center">
         <span
@@ -85,13 +77,14 @@ const Card: React.FC<CardProps> = ({
       >
         {isInStock ? (
           <div className="flex items-center space-x-2">
-            <img src="/bee.png" alt={t("inStock")} className="h-12 w-auto" />
+            <img src="/bee.png" loading="lazy" alt={t("inStock")} className="h-12 w-auto" />
             <span>{t("inStock")}</span>
           </div>
         ) : (
           <div className="flex flex-col items-center">
             <div className="flex items-center space-x-2">
               <img
+                loading="lazy"
                 src="/sad-bee.webp"
                 alt={t("outOfStock")}
                 className="h-12 w-auto"
@@ -108,115 +101,75 @@ const Card: React.FC<CardProps> = ({
         )}
       </div>
 
-      {showInfoModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50"
-          onClick={handleToggleInfoModal}
-        >
-          <div
-            className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">{translatedName}</h2>
-              <span
-                onClick={handleToggleInfoModal}
-                className="text-red-500 font-bold cursor-pointer"
-              >
-                {t("X")}
-              </span>
-            </div>
-            <div className="text-gray-700">{translatedDescription}</div>
-          </div>
-        </div>
-      )}
+      <Modal
+        isOpen={showInfoModal}
+        onClose={handleToggleInfoModal}
+        title={translatedName}
+      >
+        <div className="text-gray-700">{translatedDescription}</div>
+      </Modal>
 
-      {showNotifyModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50"
-          onClick={handleToggleNotifyModal}
+      <Modal
+        isOpen={showNotifyModal}
+        onClose={handleToggleNotifyModal}
+        title={t("Notify me")}
+      >
+        <input
+          type="email"
+          placeholder={t("emailPlaceholder")}
+          className={`border p-2 rounded-md w-full mb-0.5 ${
+            email === "" || validator.isEmail(email)
+              ? "border-green-500"
+              : "border-red-500"
+          }`}
+          value={email}
+          onChange={handleEmailChange}
+        />
+        {email !== "" && !validator.isEmail(email) && (
+          <span className="text-red-500 text-sm p-1 font-semibold">
+            {t("invalidEmail")}
+            <span className="text-lg">&#128683;</span>
+          </span>
+        )}
+        {email !== "" && validator.isEmail(email) && (
+          <span className="text-green-500 text-sm p-1 font-semibold">
+            {t("validEmail")}
+            <span className="text-lg">&#128079;</span>
+          </span>
+        )}
+        <button
+          onClick={handleNotifyClick}
+          disabled={email !== "" && !validator.isEmail(email)}
+          className={`text-white p-2 mt-2 rounded-md transition duration-300 w-full ${
+            email !== "" && !validator.isEmail(email)
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-custom-orange hover:bg-brown-700"
+          }`}
         >
-          <div
-            className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">{t("Notify me")}</h2>
-              <span
-                onClick={handleToggleNotifyModal}
-                className="text-red-900 text-xl cursor-pointer font-bold"
-              >
-                {t("X")}
-              </span>
-            </div>
-            <input
-              type="email"
-              placeholder={t("emailPlaceholder")}
-              className={`border p-2 rounded-md w-full mb-0.5 ${
-                email === "" || validator.isEmail(email)
-                  ? "border-green-500"
-                  : "border-red-500"
-              }`}
-              value={email}
-              onChange={handleEmailChange}
-            />
-            {email !== "" && !validator.isEmail(email) && (
-              <span className="text-red-500 text-sm p-1 font-semibold">
-                {t("This is not a valid email ")}<span className="text-lg">&#128683;</span>
-              </span>
-            )}
-            {email !== "" && validator.isEmail(email) && (
-              <span className="text-green-500 text-sm p-1 font-semibold">
-                {t("This is a valid email ")}<span className="text-lg">&#128079;</span>
-              </span>
-            )}
-            <button
-              onClick={handleNotifyClick}
-              disabled={email !== "" && !validator.isEmail(email)}
-              className={`text-white p-2 mt-2 rounded-md transition duration-300 w-full ${
-                email !== "" && !validator.isEmail(email)
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-custom-orange hover:bg-brown-700"
-              }`}
-            >
-              {t("notifyMe")}
-            </button>
-          </div>
-        </div>
-      )}
-      {showSuccessModal && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50"
-          onClick={handleToggleSuccessModal}
-        >
-          <div
-            className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">
-                {t("Congrats! You will be notified!")}
-              </h2>
-              <span
-                onClick={handleToggleSuccessModal}
-                className="text-red-900 text-xl cursor-pointer font-bold"
-              >
-                {t("X")}
-              </span>
-            </div>
-            <div className="text-center text-gray-700">
-            {t("Don't worry! I've noted that you want to be notified at {{email}} when {{productName}} is back in stock.", { email, productName })}</div>
+          {t("notifyMe")}
+        </button>
+      </Modal>
 
-            <div className="relative h-48 mt-4">
-                <img
-                  src="/worker-bee.gif"
-                  alt="Happy Bee"
-                  className="h-full w-full object-none"
-                />
-              </div>
-          </div>
+      <Modal
+        isOpen={showSuccessModal}
+        onClose={handleToggleSuccessModal}
+        title={t("notifyTitle")}
+      >
+        <div className="text-center text-gray-700">
+          {t(
+            "notifyMessage",
+            { email, productName }
+          )}
         </div>
-      )}
+        <div className="relative h-48 mt-4">
+          <img
+            loading="lazy"
+            src="/worker-bee.gif"
+            alt="Happy Bee"
+            className="h-full w-full object-none"
+          />
+        </div>
+      </Modal>
     </div>
   );
 };
