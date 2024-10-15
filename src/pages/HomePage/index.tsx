@@ -6,11 +6,13 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import Card from "../../components/Card";
 import { registerEmailContentful } from "../../services/contentfulService";
 import { throttle } from "lodash";
+import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [bees, setBees] = useState<{ x: number; y: number }[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -58,22 +60,27 @@ const HomePage: React.FC = () => {
       ) : (
         <div className="relative flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
           {products.map((product) => (
-            <Card
-              key={product.id}
-              productId={product.id}
-              productName={product.name}
-              productImage={product.image.url}
-              description={documentToReactComponents(product.description.json, {
-                renderNode: {
-                  [BLOCKS.PARAGRAPH]: (node, children) => (
-                    <p className="text-gray-700">{children}</p>
-                  ),
-                },
-              })}
-              isInStock={product.isInStock}
-              onNotify={handleNotify}
-            />
-          ))}
+        <Card
+          key={product.id}
+          productId={product.id}
+          productName={product.name}
+          productImage={product.image.url}
+          description={
+            product.description
+              ? documentToReactComponents(product.description.json, {
+                  renderNode: {
+                    [BLOCKS.PARAGRAPH]: (node, children) => (
+                      <p className="text-gray-700">{children}</p>
+                    ),
+                  },
+                })
+              : <p>{t("noDescription")}</p>
+          }
+          isInStock={product.isInStock}
+          onNotify={handleNotify}
+        />
+      ))}
+
           
           {bees.map((bee, index) => (
             <img

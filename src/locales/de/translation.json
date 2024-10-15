@@ -11,5 +11,7 @@
   "notifyMessage": "Keine Sorge! Ich habe notiert, dass Sie an {{email}} benachrichtigt werden möchten, wenn {{productName}} wieder auf Lager ist.",
   "notifyTitle": "Herzlichen Glückwunsch! Sie werden benachrichtigt!",
   "validEmail": "Dies ist eine gültige E-Mail!",
-  "invalidEmail": "Dies ist keine gültige E-Mail!"
+  "invalidEmail": "Dies ist keine gültige E-Mail!",
+  "loading": "Wird geladen...",
+  "noDescription": "Keine Beschreibung verfügbar."
 }
