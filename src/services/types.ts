@@ -44,7 +44,6 @@ export interface ProductImage {
     descriptionPortuguese: string;
     descriptionGerman: string;
     image: ProductImage;
-    description: ProductDescription;
     isInStock: boolean;
   }
   

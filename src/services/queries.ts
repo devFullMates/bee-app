@@ -21,9 +21,6 @@ export const PRODUCTS_QUERY = gql`
           title
           description
         }
-        description {
-          json
-        }
       }
     }
   }

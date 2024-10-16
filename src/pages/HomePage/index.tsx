@@ -78,7 +78,7 @@ const HomePage: React.FC = () => {
       ) : (
         <div className="relative flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
           {products.map((product) => {
-            const selectedLanguage = languageMapping[currentLanguage as keyof typeof languageMapping] || languageMapping.en;
+            const selectedLanguage = languageMapping[currentLanguage as keyof typeof languageMapping] || languageMapping.nl;
             const productName = product[selectedLanguage.name as keyof Product] as string || "";
             const productDescription = product[selectedLanguage.description as keyof Product] as string || "";
 

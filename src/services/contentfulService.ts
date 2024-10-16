@@ -21,7 +21,6 @@ export const fetchProducts = async (): Promise<Product[]> => {
         title: item.image.title,
         description: item.image.description,
       },
-      description: item.description,
       isInStock: item.inStock,
     }));
   } catch (error) {
