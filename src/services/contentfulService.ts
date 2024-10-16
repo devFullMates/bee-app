@@ -8,7 +8,14 @@ export const fetchProducts = async (): Promise<Product[]> => {
 
     return data.productCollection.items.map((item) => ({
       id: item.sys.id,
-      name: item.name,
+      productNameEnglish: item.productNameEnglish,
+      productNameDutch: item.productNameDutch,
+      productNamePortuguese: item.productNamePortuguese,
+      productNameGerman: item.productNameGerman,
+      descriptionEnglish: item.descriptionEnglish,
+      descriptionDutch: item.descriptionDutch,
+      descriptionPortuguese: item.descriptionPortuguese,
+      descriptionGerman: item.descriptionGerman,
       image: {
         url: item.image.url,
         title: item.image.title,
@@ -58,9 +65,6 @@ export const registerEmailContentful = async (email: string, productId: string):
     if (!response.ok) {
       throw new Error(`Failed to create email: ${response.statusText}`);
     }
-
-    const data = await response.json();
-    console.log('Email created successfully:', data);
   } catch (error) {
     console.error('Error creating email:', error);
   }

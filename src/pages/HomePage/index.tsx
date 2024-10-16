@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { fetchProducts } from "../../services/contentfulService";
 import { Product } from "../../services/types";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { BLOCKS } from "@contentful/rich-text-types";
+import { useTranslation } from "react-i18next";
 import Card from "../../components/Card";
 import { registerEmailContentful } from "../../services/contentfulService";
 import { throttle } from "lodash";
-import { useTranslation } from "react-i18next";
 
 const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [bees, setBees] = useState<{ x: number; y: number }[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+
+  const languageMapping = {
+    nl: {
+      name: 'productNameDutch',
+      description: 'descriptionDutch',
+    },
+    en: {
+      name: 'productNameEnglish',
+      description: 'descriptionEnglish',
+    },
+    pt: {
+      name: 'productNamePortuguese',
+      description: 'descriptionPortuguese',
+    },
+    de: {
+      name: 'productNameGerman',
+      description: 'descriptionGerman',
+    },
+  };
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -59,29 +77,30 @@ const HomePage: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <div className="relative flex flex-col sm:flex-row flex-wrap justify-center items-center p-6 gap-6">
-          {products.map((product) => (
-        <Card
-          key={product.id}
-          productId={product.id}
-          productName={product.name}
-          productImage={product.image.url}
-          description={
-            product.description
-              ? documentToReactComponents(product.description.json, {
-                  renderNode: {
-                    [BLOCKS.PARAGRAPH]: (node, children) => (
-                      <p className="text-gray-700">{children}</p>
-                    ),
-                  },
-                })
-              : <p>{t("noDescription")}</p>
-          }
-          isInStock={product.isInStock}
-          onNotify={handleNotify}
-        />
-      ))}
+          {products.map((product) => {
+            const selectedLanguage = languageMapping[currentLanguage as keyof typeof languageMapping] || languageMapping.en;
+            const productName = product[selectedLanguage.name as keyof Product] as string || "";
+            const productDescription = product[selectedLanguage.description as keyof Product] as string || "";
 
-          
+        return (
+          <Card
+            key={product.id}
+            productId={product.id}
+            productName={productName}
+            productImage={product.image.url}
+            description={
+              productDescription ? (
+                <p className="text-gray-700">{productDescription}</p>
+              ) : (
+                <p>{t("noDescription")}</p>
+              )
+            }
+            isInStock={product.isInStock}
+            onNotify={handleNotify}
+          />
+      );
+    })}
+
           {bees.map((bee, index) => (
             <img
               key={index}

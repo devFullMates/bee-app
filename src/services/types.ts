@@ -12,7 +12,14 @@ export interface ProductImage {
     sys: {
       id: string;
     };
-    name: string;
+    productNameDutch: string;
+    productNameEnglish: string;
+    productNamePortuguese: string;
+    productNameGerman: string;
+    descriptionDutch: string;
+    descriptionEnglish: string;
+    descriptionPortuguese: string;
+    descriptionGerman: string;
     inStock: boolean;
     image: ProductImage;
     description: ProductDescription;
@@ -28,7 +35,14 @@ export interface ProductImage {
   
   export interface Product {
     id: string;
-    name: string;
+    productNameDutch: string;
+    productNameEnglish: string;
+    productNamePortuguese: string;
+    productNameGerman: string;
+    descriptionDutch: string;
+    descriptionEnglish: string;
+    descriptionPortuguese: string;
+    descriptionGerman: string;
     image: ProductImage;
     description: ProductDescription;
     isInStock: boolean;

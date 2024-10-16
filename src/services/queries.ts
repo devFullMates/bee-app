@@ -7,7 +7,14 @@ export const PRODUCTS_QUERY = gql`
         sys {
           id
         }
-        name
+        productNameDutch
+        productNameEnglish
+        productNamePortuguese
+        productNameGerman
+        descriptionDutch
+        descriptionEnglish
+        descriptionPortuguese
+        descriptionGerman
         inStock
         image {
           url
