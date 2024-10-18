@@ -71,10 +71,6 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const getImageSrc = (imagePath: string) => {
-    return new URL(`../../${imagePath}`, import.meta.url).href;
-  };
-
   return (
     <>
       {loading ? (
