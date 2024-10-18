@@ -9,7 +9,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    {/* Strict Mode: It's a good practice to use React.StrictMode during development, as it helps identify potential issues and encourages best practices. */}
     <BrowserRouter>
       <App />
     </BrowserRouter>
