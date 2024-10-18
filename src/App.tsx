@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import Header from './components/Header';
 const RoutesPath = lazy(() => import('./routes'));
