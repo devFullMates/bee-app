@@ -88,13 +88,7 @@ const HomePage: React.FC = () => {
             productId={product.id}
             productName={productName}
             productImage={product.image.url}
-            description={
-              productDescription ? (
-                <p className="text-gray-700">{productDescription}</p>
-              ) : (
-                <p>{t("noDescription")}</p>
-              )
-            }
+            description={productDescription || t("noDescription")}
             isInStock={product.isInStock}
             onNotify={handleNotify}
           />
