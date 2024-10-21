@@ -112,7 +112,7 @@ const Card: React.FC<CardProps> = ({
       <Modal
         isOpen={showNotifyModal}
         onClose={handleToggleNotifyModal}
-        title={t("Notify me")}
+        title={t("notifyMe")}
       >
         <input
           type="email"
