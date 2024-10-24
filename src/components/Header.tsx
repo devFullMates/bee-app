@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ logoSrc, companyName }) => {
   };
 
   return (
-    <header className="fixed z-10 top-0 w-full flex items-center justify-between p-3 bg-custom-brown text-white">
+    <header className="fixed z-10 top-0 w-full flex items-center justify-between p-3 bg-[rgba(90,30,13,0.85)] text-white">
       <div className="relative h-4 mt-2">
         <div className="absolute -top-1 -right-5 w-16 h-16 bee-animation">
           <a href="/">
