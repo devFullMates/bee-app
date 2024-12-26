@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchProducts } from "../../services/contentfulService";
 import { Product } from "../../services/types";
 import { useTranslation } from "react-i18next";
@@ -10,8 +10,10 @@ const HomePage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [bees, setBees] = useState<{ x: number; y: number }[]>([]);
   const [loading, setLoading] = useState(true);
+  const beesRef = useRef<{ x: number; y: number }[]>([]);
   const { t, i18n } = useTranslation();
   const currentLanguage = i18n.language;
+  const [beeImage, setBeeImage] = useState<HTMLImageElement | null>(null);
 
   const languageMapping = {
     nl: {
@@ -45,23 +47,36 @@ const HomePage: React.FC = () => {
     loadProducts();
 
     const handleMouseMove = (event: MouseEvent) => {
-      const newBee = { x: event.clientX, y: event.clientY };
-      setBees((prev) => {
-        const updatedBees = [...prev, newBee];
-        if (updatedBees.length > 6) {
-          updatedBees.shift();
-        }
-        return updatedBees;
-      });
+      const scrollX = window.scrollX || window.pageXOffset;
+      const scrollY = window.scrollY || window.pageYOffset;
+      
+      const newBee = {
+        x: event.clientX + scrollX,
+        y: event.clientY + scrollY
+      };
+      
+      beesRef.current = [...beesRef.current, newBee];
+      if (beesRef.current.length > 6) {
+        beesRef.current.shift();
+      }
+      setBees(beesRef.current);
     };
 
-    const throttledMouseMove = throttle(handleMouseMove, 100);
+    const throttledMouseMove = throttle(handleMouseMove, 50);
     window.addEventListener("mousemove", throttledMouseMove);
 
     return () => {
       window.removeEventListener("mousemove", throttledMouseMove);
     };
   }, []);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = '/bee.png';
+    img.onload = () => setBeeImage(img);
+  }, []);
+
+  if (!beeImage) return null;
 
   const handleNotify = async (email: string, productId: string) => {
     try {
@@ -82,34 +97,42 @@ const HomePage: React.FC = () => {
             const productName = product[selectedLanguage.name as keyof Product] as string || "";
             const productDescription = product[selectedLanguage.description as keyof Product] as string || "";
 
-        return (
-          <Card
-            key={product.id}
-            productId={product.id}
-            productName={productName}
-            productImage={product.image.url}
-            description={productDescription || t("noDescription")}
-            isInStock={product.isInStock}
-            onNotify={handleNotify}
-          />
-      );
-    })}
+            return (
+              <Card
+                key={product.id}
+                productId={product.id}
+                productName={productName}
+                productImage={product.image.url}
+                description={productDescription || t("noDescription")}
+                isInStock={product.isInStock}
+                onNotify={handleNotify}
+              />
+            );
+          })}
 
-          {bees.map((bee, index) => (
-            <img
-              key={index}
-              src="/bee.png"
-              alt="bee"
-              className="absolute w-8 h-8 pointer-events-none"
-              loading="lazy"
-              style={{
-                left: bee.x,
-                top: bee.y,
-                transform: "translate(-50%, -50%)",
-                transition: "left 0.1s, top 0.1s",
-              }}
-            />
-          ))}
+          {bees.map((bee, index) => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const adjustedY = bee.y - scrollY;
+            
+            return (
+              <img
+                key={index}
+                src="/bee.png"
+                alt="Flying bee"
+                style={{
+                  position: 'fixed',
+                  left: `${bee.x}px`,
+                  top: `${adjustedY}px`,
+                  width: '20px',
+                  height: '20px',
+                  pointerEvents: 'none',
+                  transform: `translate(-50%, -50%)`,
+                  transition: 'all 0.1s ease-out',
+                  zIndex: 1000
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </>
