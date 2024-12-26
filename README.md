@@ -7,7 +7,7 @@
 </p>
 
 ## Overview
-This web application showcases various honey-based products such as honey jars, lip balms, and other items made by a beekeeper. It allows users to browse through the available products and offers features for customers to be notified when out-of-stock items become available again. Find the backend here [Backend for this application](https://github.com/larissakoliveira/webhook-api-contentful-bees)
+This web application showcases various honey-based products such as honey jars, lip balms, and other items made by a beekeeper. It allows users to browse through the available products and offers features for customers to be notified when out-of-stock items become available again. [Backend for this application](https://github.com/larissakoliveira/webhook-api-contentful-bees)
 
 ## Features
 - **Product Catalog**: Display of products with product cards that include:
