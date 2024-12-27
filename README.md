@@ -2,49 +2,50 @@
   🐝🍯 bee app 🍯🐝
 </h1>
 
-# Getting Started with Create React App
+<p align = "justify">
+	:green_circle:  Honey Products Store.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+This web application showcases various honey-based products such as honey jars, lip balms, and other items made by a beekeeper. It allows users to browse through the available products and offers features for customers to be notified when out-of-stock items become available again. [Backend for this application](https://github.com/larissakoliveira/webhook-api-contentful-bees)
 
-## Available Scripts
+## Features
+- **Product Catalog**: Display of products with product cards that include:
+  - Product name
+  - Product image
+  - "More information" button that opens a modal with the product's detailed description.
+- **Stock Notifications**: 
+  - If a product is out of stock, a "Notify Me" button will appear. Users can enter their email address to be notified when the product is back in stock.
+  - If a product is in stock, no "Notify Me" button will be displayed.
+- **Multi-Language Support**: The application supports Dutch, English, Portuguese and German allowing users to switch between languages for a more personalized experience.
 
-In the project directory, you can run:
+## Tech Stack
+### Frontend:
+- **React** (TypeScript) for building the user interface, ensuring type safety and smooth development experience.
+- **Contentful** CMS is used to manage product data (name, description, images, and stock status) dynamically.
+  
+### Backend:
+- **Contentful Webhook**: A webhook triggers an event when product stock status changes. This ensures that email notifications are sent as soon as the stock is updated.
+- **Nodemailer**: Handles sending email notifications to users who sign up for stock updates.
+#### Check out the backend project: `https://github.com/larissakoliveira/webhook-api-contentful-bees`
+  
+## How It Works
+1. **Product Management**: The website owner can manage products directly through Contentful, including adding/removing products and updating stock status.
+2. **Customer Experience**: Users can browse products and request notifications for out-of-stock items. When an item is back in stock, an email will be sent to those who signed up.
+3. **Language Switching**: The website allows users to switch between different languages, providing an international user experience.
 
-### `npm start`
+## Installation & Setup
+1. Clone this repository:
+2. Add .env file with the following variables:
+2. Add a `.env` file with the following variables:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Variable Name                                    | Description                                 |
+|--------------------------------------------------|---------------------------------------------|
+| `VITE_CONTENTFUL_SPACE_ID`                       | Your Contentful space ID                    |
+| `VITE_CONTENTFUL_ACCESS_TOKEN_DELIVERY_API`      | Your Contentful delivery API token (HTTP GET)|
+| `VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT`        | Your Contentful management API token (HTTP POST, DELETE, PATCH, PUT)|
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```bash
+   git clone git@github.com:devFullMates/bee-app.git
+   npm install   
+   npm start

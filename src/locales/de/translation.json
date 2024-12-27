@@ -1,0 +1,17 @@
+{
+  "welcome": "Willkommen",
+  "product": "Produkt",
+  "description": "Beschreibung",
+  "inStock": "Auf Lager",
+  "outOfStock": "Nicht auf Lager",
+  "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+  "notifyMe": "Benachrichtigen Sie mich",
+  "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "moreInfo": "Mehr Informationen",
+  "notifyMessage": "Keine Sorge! Ich habe notiert, dass Sie an {{email}} benachrichtigt werden möchten, wenn {{productName}} wieder auf Lager ist.",
+  "notifyTitle": "Herzlichen Glückwunsch! Sie werden benachrichtigt!",
+  "validEmail": "Dies ist eine gültige E-Mail!",
+  "invalidEmail": "Dies ist keine gültige E-Mail!",
+  "loading": "Wird geladen...",
+  "noDescription": "Keine Beschreibung verfügbar."
+}
