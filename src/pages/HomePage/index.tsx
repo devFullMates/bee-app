@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
 
   const handleNotify = async (email: string, productId: string) => {
     try {
-      await registerEmailContentful(email, productId);
+      await registerEmailContentful(email, productId, currentLanguage);
     } catch (error) {
       console.error("Failed to submit notification request", error);
     }

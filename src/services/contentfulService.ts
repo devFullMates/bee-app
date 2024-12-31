@@ -29,7 +29,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const registerEmailContentful = async (email: string, productId: string): Promise<void> => {
+export const registerEmailContentful = async (email: string, productId: string, language: string): Promise<void> => {
   const spaceId = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
   const accessTokenPost = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT; 
 
@@ -47,6 +47,9 @@ export const registerEmailContentful = async (email: string, productId: string):
         fields: {
           email: {
             'en-US': email,
+          },
+          language: {
+            'en-US': language,
           },
           relatedProduct: {
             'en-US': {

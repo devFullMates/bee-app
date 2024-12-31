@@ -37,13 +37,13 @@ This web application showcases various honey-based products such as honey jars, 
 ## Installation & Setup
 1. Clone this repository:
 2. Add .env file with the following variables:
-2. Add a `.env` file with the following variables:
+2. Add a `.env` file with the following variables that you can find in your ContentFul settings:
 
 | Variable Name                                    | Description                                 |
 |--------------------------------------------------|---------------------------------------------|
 | `VITE_CONTENTFUL_SPACE_ID`                       | Your Contentful space ID                    |
-| `VITE_CONTENTFUL_ACCESS_TOKEN_DELIVERY_API`      | Your Contentful delivery API token (HTTP GET)|
-| `VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT`        | Your Contentful management API token (HTTP POST, DELETE, PATCH, PUT)|
+| `VITE_CONTENTFUL_ACCESS_TOKEN_DELIVERY_API`      | Your Contentful delivery API token (HTTP GET) API KEYS|
+| `VITE_CONTENTFUL_ACCESS_TOKEN_MANAGEMENT`        | Your Contentful management API token (HTTP POST, DELETE, PATCH, PUT) CMA TOKENS|
 
    ```bash
    git clone git@github.com:devFullMates/bee-app.git
